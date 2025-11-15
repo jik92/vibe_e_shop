@@ -26,6 +26,8 @@ Services:
 
 The frontend build step automatically pre-renders the homepage into `frontend/dist/index.html`, so bots get a fully populated product list without running JavaScript.
 
+Set `VITE_SITE_URL` in your environment (or Docker `frontend` service) to ensure canonical/OG links emit the correct absolute domain. Defaults to `http://localhost:3000`.
+
 ## Development Mode (Hot Reload)
 
 For live reload on both FastAPI and Vite, use the dev compose file:
@@ -57,4 +59,3 @@ docker-compose.yml
 Dockerfile.backend
 Dockerfile.frontend
 ```
-

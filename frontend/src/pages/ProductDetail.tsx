@@ -10,6 +10,8 @@ import { Badge } from '../components/ui/badge'
 import { useAuth } from '../contexts/AuthContext'
 import type { Product } from '../types/api'
 import { formatCurrency } from '../lib/currency'
+import { SITE_NAME, absoluteUrl } from '../config/seo'
+import { Helmet } from 'react-helmet-async'
 
 type ProductLoaderData = { product: Product }
 
@@ -36,9 +38,45 @@ const ProductDetail = (): JSX.Element => {
   }
 
   const inStock = (data.stock ?? 0) > 0
+  const productUrl = absoluteUrl(`/products/${data.id}`)
+  const productImage = data.image_url ? data.image_url : absoluteUrl('/img.png')
 
   return (
     <Card className="mx-auto max-w-3xl rounded-[32px] border border-slate-100 bg-white/95 shadow-2xl">
+      <Helmet>
+        <title>{`${data.name} | ${SITE_NAME}`}</title>
+        <meta name="description" content={data.description} />
+        <link rel="canonical" href={productUrl} />
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content={`${data.name} | ${SITE_NAME}`} />
+        <meta property="og:description" content={data.description} />
+        <meta property="og:url" content={productUrl} />
+        <meta property="og:image" content={productImage} />
+        <meta property="product:price:amount" content={String(data.price)} />
+        <meta property="product:price:currency" content="USD" />
+        <meta property="product:availability" content={inStock ? 'in stock' : 'out of stock'} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${data.name} | ${SITE_NAME}`} />
+        <meta name="twitter:description" content={data.description} />
+        <meta name="twitter:image" content={productImage} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org/',
+            '@type': 'Product',
+            name: data.name,
+            image: productImage,
+            description: data.description,
+            sku: data.id,
+            offers: {
+              '@type': 'Offer',
+              url: productUrl,
+              priceCurrency: 'USD',
+              price: data.price,
+              availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
+            }
+          })}
+        </script>
+      </Helmet>
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="rounded-[28px] bg-slate-100 p-4">
           {data.image_url ? (

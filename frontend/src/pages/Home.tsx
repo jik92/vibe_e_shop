@@ -10,6 +10,7 @@ import { Button } from '../components/ui/button'
 import { Badge } from '../components/ui/badge'
 import { useAuth } from '../contexts/AuthContext'
 import type { Product } from '../types/api'
+import { SITE_NAME, DEFAULT_DESCRIPTION, absoluteUrl } from '../config/seo'
 
 type HomeLoaderData = { products: Product[] }
 
@@ -41,8 +42,33 @@ const Home = (): JSX.Element => {
   return (
     <div className="space-y-16">
       <Helmet>
-        <title>E-Shop | {t('home.title')}</title>
+        <title>{`${SITE_NAME} | ${t('home.title')}`}</title>
         <meta name="description" content={t('home.subtitle')} />
+        <link rel="canonical" href={absoluteUrl()} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={SITE_NAME} />
+        <meta property="og:title" content={`${SITE_NAME} | ${t('home.title')}`} />
+        <meta property="og:description" content={t('home.subtitle')} />
+        <meta property="og:url" content={absoluteUrl()} />
+        <meta property="og:image" content={absoluteUrl('/img.png')} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${SITE_NAME} | ${t('home.title')}`} />
+        <meta name="twitter:description" content={t('home.subtitle')} />
+        <meta name="twitter:image" content={absoluteUrl('/img.png')} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: SITE_NAME,
+            url: absoluteUrl(),
+            description: DEFAULT_DESCRIPTION,
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${absoluteUrl('/products')}?q={search_term_string}`,
+              'query-input': 'required name=search_term_string'
+            }
+          })}
+        </script>
       </Helmet>
       <section className="relative grid min-h-[90vh] w-full gap-12 bg-soft-gradient px-6 py-20 shadow-[0_60px_160px_rgba(122,111,245,0.18)] lg:grid-cols-[1.3fr_minmax(0,1fr)] lg:px-32">
         <div className="space-y-6">
