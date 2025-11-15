@@ -1,4 +1,12 @@
-import type { Cart, LoginPayload, Order, Product, RegisterPayload, User, AuthResponse } from '../types/api'
+import type {
+  Cart,
+  LoginPayload,
+  Order,
+  Product,
+  RegisterPayload,
+  User,
+  AuthResponse
+} from '../types/api'
 import { getStoredToken } from '../lib/auth'
 
 interface ApiFetchOptions {
@@ -9,7 +17,10 @@ interface ApiFetchOptions {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
-const apiFetch = async <T>(path: string, { method = 'GET', data, token }: ApiFetchOptions = {}): Promise<T> => {
+const apiFetch = async <T>(
+  path: string,
+  { method = 'GET', data, token }: ApiFetchOptions = {}
+): Promise<T> => {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }
   const authToken = token ?? getStoredToken()
   if (authToken) {
@@ -60,8 +71,10 @@ export const api = {
     queryKey: ['order', orderId] as const,
     queryFn: () => apiFetch<Order>(`/api/orders/${orderId}`)
   }),
-  login: (payload: LoginPayload) => apiFetch<AuthResponse>('/api/auth/login', { method: 'POST', data: payload }),
-  register: (payload: RegisterPayload) => apiFetch<User>('/api/auth/register', { method: 'POST', data: payload }),
+  login: (payload: LoginPayload) =>
+    apiFetch<AuthResponse>('/api/auth/login', { method: 'POST', data: payload }),
+  register: (payload: RegisterPayload) =>
+    apiFetch<User>('/api/auth/register', { method: 'POST', data: payload }),
   addToCart: (payload: { product_id: number; quantity: number }) =>
     apiFetch<Cart>('/api/cart', { method: 'POST', data: payload }),
   updateCartItem: ({ id, quantity }: { id: number; quantity: number }) =>

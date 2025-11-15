@@ -1,0 +1,16 @@
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+indent-width = 2
+src = ["backend"]
+fix = true
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
