@@ -16,7 +16,7 @@ const ProductCard = ({ product, onAdd }: ProductCardProps): JSX.Element => {
   const { t } = useTranslation()
   const inStock = (product.stock ?? 0) > 0
   return (
-    <Card className="group flex h-full flex-col overflow-hidden border-slate-100/80 bg-white/90 shadow-xl ring-1 ring-transparent transition hover:-translate-y-1 hover:ring-primary/20">
+    <Card className="group flex h-full flex-col overflow-hidden border-[#E3DCCF] bg-[#FBFAF7] shadow-lg ring-1 ring-transparent transition hover:-translate-y-1 hover:ring-[#7B6FF5]/20">
       <div className="relative h-48 w-full overflow-hidden bg-slate-100">
         {product.image_url ? (
           <img src={product.image_url} alt={product.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
@@ -35,9 +35,9 @@ const ProductCard = ({ product, onAdd }: ProductCardProps): JSX.Element => {
       </CardHeader>
       <CardContent className="mt-auto flex items-end justify-between gap-4">
         <div>
-          <p className="text-sm uppercase tracking-wide text-muted-foreground">{t('product.price')}</p>
-          <p className="text-2xl font-semibold text-slate-900">{formatCurrency(product.price)}</p>
-          <div className="mt-2 inline-flex items-center gap-1 text-xs text-muted-foreground">
+          <p className="text-sm uppercase tracking-[0.4em] text-[#7B6FF5]">{t('product.price')}</p>
+          <p className="text-2xl font-semibold text-[#2A2A2A]">{formatCurrency(product.price)}</p>
+          <div className="mt-2 inline-flex items-center gap-1 text-xs text-[#4F4B45]">
             <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
             <span>4.9</span>
             <span>•</span>
@@ -48,7 +48,7 @@ const ProductCard = ({ product, onAdd }: ProductCardProps): JSX.Element => {
       {onAdd && (
         <CardFooter>
           <Button
-            className="w-full gap-2 rounded-2xl bg-slate-900 text-white hover:bg-slate-800"
+            className="w-full gap-2 rounded-full bg-[#7B6FF5] text-white hover:bg-[#A69CFF]"
             onClick={() => onAdd(product)}
             disabled={!inStock}
           >

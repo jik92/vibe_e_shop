@@ -18,8 +18,8 @@ const LanguageSwitcher = (): JSX.Element => {
     <Button
       type="button"
       size="sm"
-      variant="secondary"
-      className="gap-2 border border-white/30 bg-transparent text-white hover:bg-white/10"
+      variant="outline"
+      className="gap-2 rounded-full border-[#E3DCCF] bg-white/70 text-[#2A2A2A] hover:bg-[#FBFAF7]"
       onClick={handleSwitch}
     >
       <Globe className="h-4 w-4" />
