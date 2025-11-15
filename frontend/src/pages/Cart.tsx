@@ -63,10 +63,9 @@ const CartPage = (): JSX.Element => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-4">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-wide text-muted-foreground">{t('cart.items')}</p>
           <h2 className="text-3xl font-semibold text-slate-900">{t('cart.title')}</h2>
         </div>
         <Badge variant="accent" className="bg-[#7B6FF5] text-white">

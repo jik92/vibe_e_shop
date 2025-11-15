@@ -72,7 +72,9 @@
     "add_to_cart": "加入购物车",
     "update": "更新",
     "remove": "移除",
-    "view": "查看"
+    "view": "查看",
+    "cancel": "取消",
+    "confirm_remove": "确认移除"
   },
   "messages": {
     "login_success": "登录成功",

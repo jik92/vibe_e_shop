@@ -72,7 +72,9 @@
     "add_to_cart": "Add to cart",
     "update": "Update",
     "remove": "Remove",
-    "view": "View"
+    "view": "View",
+    "cancel": "Cancel",
+    "confirm_remove": "Remove item"
   },
   "messages": {
     "login_success": "Logged in",

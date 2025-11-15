@@ -17,6 +17,7 @@ interface CartItemRowProps {
 const CartItemRow = ({ item, onUpdate, onRemove }: CartItemRowProps): JSX.Element => {
   const { t } = useTranslation()
   const [quantity, setQuantity] = useState(item.quantity)
+  const [confirming, setConfirming] = useState(false)
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white/90 p-4 shadow-sm sm:flex-row sm:items-center">
@@ -45,13 +46,33 @@ const CartItemRow = ({ item, onUpdate, onRemove }: CartItemRowProps): JSX.Elemen
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
           />
-          <Button size="sm" className="rounded-xl" onClick={() => onUpdate(item.id, quantity)}>
+          <Button size="sm" variant="outline" className="rounded-xl" onClick={() => onUpdate(item.id, quantity)}>
             {t('buttons.update')}
           </Button>
-          <Button size="sm" variant="destructive" className="rounded-xl" onClick={() => onRemove(item.id)}>
-            <Trash2 className="mr-1.5 h-4 w-4" />
-            {t('buttons.remove')}
-          </Button>
+          {confirming ? (
+            <div className="flex gap-2">
+              <Button size="sm" variant="ghost" onClick={() => setConfirming(false)}>
+                {t('buttons.cancel')}
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                className="rounded-xl"
+                onClick={() => {
+                  onRemove(item.id)
+                  setConfirming(false)
+                }}
+              >
+                <Trash2 className="mr-1.5 h-4 w-4" />
+                {t('buttons.confirm_remove')}
+              </Button>
+            </div>
+          ) : (
+            <Button size="sm" variant="ghost" className="rounded-xl text-[#D92D20]" onClick={() => setConfirming(true)}>
+              <Trash2 className="mr-1.5 h-4 w-4" />
+              {t('buttons.remove')}
+            </Button>
+          )}
         </div>
       </div>
     </div>
