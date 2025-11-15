@@ -12,20 +12,30 @@
   "home": {
     "title": "Shop curated electronics worldwide",
     "subtitle": "Localized experience, multi-language support, instant checkout, and transparent orders.",
-    "featured": "Featured products"
+    "featured": "Featured products",
+    "badge": "Flagship drops weekly",
+    "cta_primary": "Explore catalog",
+    "cta_secondary": "Track your orders",
+    "stat_products": "Products ready to ship",
+    "stat_delivery": "Global destinations",
+    "stat_support": "Avg. support rating"
   },
   "forms": {
     "email": "Email",
     "password": "Password",
     "confirm": "Confirm",
     "login": "Sign in",
-    "register": "Create account"
+    "register": "Create account",
+    "login_error": "Unable to login. Please try again.",
+    "register_error": "Unable to register. Please try again.",
+    "register_success": "Account created. Continue to login."
   },
   "cart": {
     "title": "Shopping cart",
     "empty": "Your cart is empty.",
     "total": "Total",
-    "checkout": "Go to checkout"
+    "checkout": "Go to checkout",
+    "items": "Items"
   },
   "checkout": {
     "title": "Secure payment",
@@ -41,19 +51,34 @@
     "title": "Your orders",
     "empty": "You have not placed an order yet.",
     "status": "Status",
-    "total": "Total"
+    "total": "Total",
+    "items": "Orders",
+    "back": "Back to orders"
   },
   "onboarding": {
     "title": "Welcome to the store",
-    "body": "Start adding products you love and localize the experience with one click."
+    "body": "Start adding products you love and localize the experience with one click.",
+    "steps": [
+      "Switch languages instantly to match your customers.",
+      "Discover curated electronics with real-time stock.",
+      "Track cart and order history across devices."
+    ],
+    "cta": "Browse products"
   },
   "buttons": {
     "add_to_cart": "Add to cart",
     "update": "Update",
-    "remove": "Remove"
+    "remove": "Remove",
+    "view": "View"
   },
   "messages": {
     "login_success": "Logged in",
     "logout_success": "Logged out"
+  },
+  "product": {
+    "price": "Price",
+    "in_stock": "In stock",
+    "out_of_stock": "Out of stock",
+    "stock_label": "{{count}} units available"
   }
 }

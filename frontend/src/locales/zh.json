@@ -12,20 +12,30 @@
   "home": {
     "title": "全球精选电子产品",
     "subtitle": "多语言体验、快捷结账以及透明的订单跟踪。",
-    "featured": "精选商品"
+    "featured": "精选商品",
+    "badge": "每周上新",
+    "cta_primary": "浏览商品",
+    "cta_secondary": "查看订单",
+    "stat_products": "现货商品",
+    "stat_delivery": "可配送国家",
+    "stat_support": "客服评分"
   },
   "forms": {
     "email": "邮箱",
     "password": "密码",
     "confirm": "确认",
     "login": "登录",
-    "register": "注册"
+    "register": "注册",
+    "login_error": "无法登录，请重试。",
+    "register_error": "注册失败，请重试。",
+    "register_success": "账号已创建，请前往登录。"
   },
   "cart": {
     "title": "购物车",
     "empty": "购物车为空。",
     "total": "合计",
-    "checkout": "前往支付"
+    "checkout": "前往支付",
+    "items": "商品"
   },
   "checkout": {
     "title": "安全支付",
@@ -41,19 +51,34 @@
     "title": "我的订单",
     "empty": "暂未下单。",
     "status": "状态",
-    "total": "合计"
+    "total": "合计",
+    "items": "订单",
+    "back": "返回订单列表"
   },
   "onboarding": {
     "title": "欢迎来到商店",
-    "body": "加入你喜欢的商品，并可一键切换语言体验。"
+    "body": "加入你喜欢的商品，并可一键切换语言体验。",
+    "steps": [
+      "即时切换语言，匹配你的客户。",
+      "精选电子产品，实时库存展示。",
+      "跨设备追踪购物车与订单历史。"
+    ],
+    "cta": "开始选购"
   },
   "buttons": {
     "add_to_cart": "加入购物车",
     "update": "更新",
-    "remove": "移除"
+    "remove": "移除",
+    "view": "查看"
   },
   "messages": {
     "login_success": "登录成功",
     "logout_success": "已退出"
+  },
+  "product": {
+    "price": "价格",
+    "in_stock": "有货",
+    "out_of_stock": "缺货",
+    "stock_label": "库存 {{count}} 件"
   }
 }

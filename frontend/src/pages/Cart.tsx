@@ -1,14 +1,18 @@
+import type { ReactNode } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useLoaderData, useNavigate } from '@tanstack/react-router'
+import { Link, useLoaderData, useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
+import { ShoppingBag } from 'lucide-react'
 
 import { api } from '../api/client'
 import CartItemRow from '../components/CartItemRow'
+import { Button } from '../components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
+import { Badge } from '../components/ui/badge'
 import { useAuth } from '../contexts/AuthContext'
 import { useCartQuery } from '../hooks/useCartQuery'
 import type { Cart } from '../types/api'
-
-const currency = (value: number) => new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' }).format(Number(value))
+import { formatCurrency } from '../lib/currency'
 
 type CartLoaderData = { cart: Cart | null }
 
@@ -31,34 +35,92 @@ const CartPage = (): JSX.Element => {
   })
 
   if (!isAuthenticated) {
-    return <p>{t('cart.empty')}</p>
+    return (
+      <EmptyState
+        title={t('cart.empty')}
+        description={t('checkout.subtitle')}
+        action={
+          <Link to="/login" className="inline-flex">
+            <Button>{t('forms.login')}</Button>
+          </Link>
+        }
+      />
+    )
   }
 
   if (!data?.items?.length) {
-    return <p>{t('cart.empty')}</p>
+    return (
+      <EmptyState
+        title={t('cart.empty')}
+        description={t('home.subtitle')}
+        action={
+          <Link to="/" className="inline-flex">
+            <Button variant="outline">{t('home.featured')}</Button>
+          </Link>
+        }
+      />
+    )
   }
 
   return (
-    <div>
-      <h2>{t('cart.title')}</h2>
-      {data.items.map((item) => (
-        <CartItemRow
-          key={item.id}
-          item={item}
-          onUpdate={(id, quantity) => updateMutation.mutate({ id, quantity })}
-          onRemove={(id) => deleteMutation.mutate(id)}
-        />
-      ))}
-      <div style={{ textAlign: 'right', marginTop: '1rem' }}>
-        <strong>
-          {t('cart.total')}: {currency(data.total_price)}
-        </strong>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-sm uppercase tracking-wide text-muted-foreground">{t('cart.items')}</p>
+          <h2 className="text-3xl font-semibold text-slate-900">{t('cart.title')}</h2>
+        </div>
+        <Badge variant="accent" className="bg-slate-900 text-white">
+          {data.items.length} {t('cart.items')}
+        </Badge>
       </div>
-      <button onClick={() => navigate({ to: '/checkout' })} style={{ marginTop: '1rem' }}>
-        {t('cart.checkout')}
-      </button>
+      <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
+        <div className="space-y-4">
+          {data.items.map((item) => (
+            <CartItemRow
+              key={item.id}
+              item={item}
+              onUpdate={(id, quantity) => updateMutation.mutate({ id, quantity })}
+              onRemove={(id) => deleteMutation.mutate(id)}
+            />
+          ))}
+        </div>
+        <Card className="rounded-3xl border border-slate-100 bg-slate-50/60 shadow-xl">
+          <CardHeader>
+            <CardTitle className="text-xl">{t('checkout.summary')}</CardTitle>
+            <p className="text-sm text-muted-foreground">{t('checkout.subtitle')}</p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center justify-between text-lg font-semibold text-slate-900">
+              <span>{t('cart.total')}</span>
+              <span>{formatCurrency(data.total_price)}</span>
+            </div>
+            <Button className="w-full rounded-2xl bg-slate-900 text-white hover:bg-slate-800" onClick={() => navigate({ to: '/checkout' })}>
+              {t('cart.checkout')}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }
+
+interface EmptyStateProps {
+  title: string
+  description: string
+  action: ReactNode
+}
+
+const EmptyState = ({ title, description, action }: EmptyStateProps) => (
+  <Card className="rounded-3xl border border-dashed border-slate-200 bg-white/80 text-center shadow-none">
+    <CardHeader>
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
+        <ShoppingBag className="h-7 w-7" />
+      </div>
+      <CardTitle className="text-2xl">{title}</CardTitle>
+      <p className="text-muted-foreground">{description}</p>
+    </CardHeader>
+    <CardContent className="flex justify-center">{action}</CardContent>
+  </Card>
+)
 
 export default CartPage

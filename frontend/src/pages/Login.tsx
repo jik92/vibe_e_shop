@@ -2,6 +2,10 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
+import { Label } from '../components/ui/label'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { useAuth } from '../contexts/AuthContext'
 import type { LoginPayload } from '../types/api'
 
@@ -24,20 +28,33 @@ const Login = (): JSX.Element => {
       await login(values)
       navigate({ to: '/onboarding' })
     } catch (err) {
-      setError((err as Error)?.message ?? 'Login failed')
+      setError((err as Error)?.message ?? t('forms.login_error'))
     }
   }
 
   return (
-    <div className="form-card">
-      <h2>{t('forms.login')}</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="email" type="email" placeholder={t('forms.email')} value={values.email} onChange={handleChange} required />
-        <input name="password" type="password" placeholder={t('forms.password')} value={values.password} onChange={handleChange} required />
-        <button type="submit">{t('forms.login')}</button>
-        {error && <p style={{ color: '#ef4444' }}>{error}</p>}
-      </form>
-    </div>
+    <Card className="mx-auto max-w-md rounded-3xl border border-slate-100 bg-white/95 shadow-2xl">
+      <CardHeader className="space-y-2">
+        <CardTitle className="text-3xl text-slate-900">{t('forms.login')}</CardTitle>
+        <CardDescription>{t('home.subtitle')}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">{t('forms.email')}</Label>
+            <Input id="email" name="email" type="email" value={values.email} onChange={handleChange} required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">{t('forms.password')}</Label>
+            <Input id="password" name="password" type="password" value={values.password} onChange={handleChange} required />
+          </div>
+          <Button className="w-full rounded-2xl bg-slate-900 text-white hover:bg-slate-800" type="submit">
+            {t('forms.login')}
+          </Button>
+          {error && <p className="text-sm text-red-500">{error}</p>}
+        </form>
+      </CardContent>
+    </Card>
   )
 }
 
