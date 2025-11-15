@@ -343,3 +343,35 @@ frontend/src/pages/Home.jsx
 <code>
 
 Do NOT skip any necessary file.
+# Repository Guidelines
+
+## Project Structure & Module Organization
+- `backend/` – FastAPI app with SQLAlchemy models, routers, and i18n JSON files. Entry point `app/main.py`.
+- `frontend/` – React 18 app (Vite, TanStack Router/Query, shadcn/ui). SSR assets live under `src/ssr/`.
+- `shared/` – Product seed data consumed by both backend and prerender scripts.
+- Root-level `Dockerfile.*` and `docker-compose*.yml` wire services together. Static assets such as `demo.gif` live at the repo root alongside the README.
+
+## Build, Test, and Development Commands
+- `docker-compose up --build` – builds all services (db, backend, frontend) and runs them in production-like mode.
+- `docker compose -f docker-compose.dev.yml up --build` – dev mode with live reload for FastAPI and Vite.
+- `pnpm run build` inside `frontend/` – compiles SPA, SSR bundle, and prerendered HTML.
+- `ffmpeg -i 2.mp4 ... demo.gif` – regenerate the showcased walkthrough GIF when updating UI flows.
+
+## Coding Style & Naming Conventions
+- Backend: Python 3.11, Pydantic models, FastAPI routers grouped under `backend/app/routers/`. Use snake_case for files and functions.
+- Frontend: TypeScript + React. Favor functional components, hooks, and TanStack loaders; avoid `useEffect` data fetching.
+- Styling: TailwindCSS tokens plus shadcn UI primitives. Prefer default/ghost buttons unless stronger emphasis is required.
+- Package management: `pnpm` for frontend, `pip` (requirements.txt) for backend.
+
+## Testing Guidelines
+- Backend: add pytest suites under `backend/tests/` (create when adding logic). Cover auth flows, CRUD, and order calculations.
+- Frontend: place vitest/react-testing-library specs under `frontend/src/__tests__/`. Snapshot UI only when meaningful; focus on loaders/hooks.
+- Run targeted tests (`cd backend && pytest`, `cd frontend && pnpm test`) before opening a PR.
+
+## Commit & Pull Request Guidelines
+- Commit messages follow short imperative summaries (`feat: add checkout summary card`). Reference issue IDs when applicable.
+- Pull requests should include:
+  - Clear description and before/after screenshots or GIFs for UI work.
+  - Test plan with commands executed (`pnpm run build`, `docker compose up -d`, etc.).
+  - Notes on migrations/data seeds if schema changes occur.
+- Keep PRs focused; split large features into smaller, reviewable chunks when possible.

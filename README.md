@@ -2,6 +2,10 @@
 
 A full-stack e-commerce demo that pairs a FastAPI backend with a React + Vite frontend. It delivers localized UX, JWT authentication, shopping cart, and order workflows, plus an SEO-ready static homepage generated via Vite's SSR build pipeline.
 
+![Product walkthrough](demo.gif)
+
+![img.png](img.png)
+
 ## Tech Stack
 
 - **Backend**: FastAPI, SQLAlchemy ORM, PostgreSQL, JWT auth, seed data + i18n JSON files.
@@ -53,3 +57,4 @@ docker-compose.yml
 Dockerfile.backend
 Dockerfile.frontend
 ```
+
