@@ -100,7 +100,7 @@ const Home = (): JSX.Element => {
           </p>
         </div>
         <div className="overflow-x-auto pb-4">
-          <div className="flex min-w-[600px] gap-4">
+          <div className="flex min-w-[600px] gap-4 py-2">
             {slides.map((slide) => (
               <div
                 key={`track-${slide.title}`}
