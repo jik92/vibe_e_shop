@@ -11,7 +11,7 @@ const currency = (value: number) => new Intl.NumberFormat(undefined, { style: 'c
 type OrdersLoaderData = { orders: Order[] }
 
 const Orders = (): JSX.Element => {
-  const initial = useLoaderData({ from: 'orders' }) as OrdersLoaderData | undefined
+  const initial = useLoaderData({}) as OrdersLoaderData | undefined
   const { isAuthenticated } = useAuth()
   const { t } = useTranslation()
 

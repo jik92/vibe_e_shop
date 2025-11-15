@@ -6,7 +6,8 @@
     "login": "登录",
     "logout": "退出",
     "register": "注册",
-    "onboarding": "引导"
+    "onboarding": "引导",
+    "checkout": "结算"
   },
   "home": {
     "title": "全球精选电子产品",
@@ -24,7 +25,17 @@
     "title": "购物车",
     "empty": "购物车为空。",
     "total": "合计",
-    "checkout": "提交订单"
+    "checkout": "前往支付"
+  },
+  "checkout": {
+    "title": "安全支付",
+    "subtitle": "请在支付前确认商品与金额。",
+    "summary": "订单摘要",
+    "pay": "立即支付",
+    "processing": "正在支付...",
+    "success": "支付成功，正在跳转到订单页面...",
+    "error": "支付失败，请重试。",
+    "empty": "暂无可支付的商品。"
   },
   "orders": {
     "title": "我的订单",

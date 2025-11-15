@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useLoaderData } from '@tanstack/react-router'
+import { useLoaderData, useNavigate } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 
 import { api } from '../api/client'
 import CartItemRow from '../components/CartItemRow'
 import { useAuth } from '../contexts/AuthContext'
 import { useCartQuery } from '../hooks/useCartQuery'
-import type { Cart, Order } from '../types/api'
+import type { Cart } from '../types/api'
 
 const currency = (value: number) => new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD' }).format(Number(value))
 
@@ -15,7 +15,8 @@ type CartLoaderData = { cart: Cart | null }
 const CartPage = (): JSX.Element => {
   const { isAuthenticated } = useAuth()
   const { t } = useTranslation()
-  const initial = useLoaderData({ from: 'cart' }) as CartLoaderData | undefined
+  const initial = useLoaderData({}) as CartLoaderData | undefined
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { data } = useCartQuery({ initialData: initial?.cart ?? undefined })
 
@@ -27,14 +28,6 @@ const CartPage = (): JSX.Element => {
   const deleteMutation = useMutation({
     mutationFn: (id: number) => api.removeCartItem(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] })
-  })
-
-  const orderMutation = useMutation<Order>({
-    mutationFn: api.createOrder,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cart'] })
-      queryClient.invalidateQueries({ queryKey: ['orders'] })
-    }
   })
 
   if (!isAuthenticated) {
@@ -61,7 +54,7 @@ const CartPage = (): JSX.Element => {
           {t('cart.total')}: {currency(data.total_price)}
         </strong>
       </div>
-      <button onClick={() => orderMutation.mutate()} style={{ marginTop: '1rem' }}>
+      <button onClick={() => navigate({ to: '/checkout' })} style={{ marginTop: '1rem' }}>
         {t('cart.checkout')}
       </button>
     </div>

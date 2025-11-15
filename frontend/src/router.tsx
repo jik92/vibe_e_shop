@@ -12,6 +12,7 @@ import OrderDetail from './pages/OrderDetail'
 import Orders from './pages/Orders'
 import ProductDetail from './pages/ProductDetail'
 import Register from './pages/Register'
+import Checkout from './pages/Checkout'
 
 export const queryClient = new QueryClient()
 
@@ -27,7 +28,6 @@ const rootRoute = createRootRouteWithContext<RouterContext>()({
 const homeRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  id: 'home',
   loader: async ({ context }) => {
     const products = await context.queryClient.ensureQueryData(api.productsQuery())
     return { products }
@@ -35,14 +35,13 @@ const homeRoute = createRoute({
   component: Home
 })
 
-const loginRoute = createRoute({ getParentRoute: () => rootRoute, path: '/login', id: 'login', component: Login })
-const registerRoute = createRoute({ getParentRoute: () => rootRoute, path: '/register', id: 'register', component: Register })
-const onboardingRoute = createRoute({ getParentRoute: () => rootRoute, path: '/onboarding', id: 'onboarding', component: Onboarding })
+const loginRoute = createRoute({ getParentRoute: () => rootRoute, path: '/login', component: Login })
+const registerRoute = createRoute({ getParentRoute: () => rootRoute, path: '/register', component: Register })
+const onboardingRoute = createRoute({ getParentRoute: () => rootRoute, path: '/onboarding', component: Onboarding })
 
 const productRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/products/$productId',
-  id: 'product-detail',
   loader: async ({ context, params }) => {
     const product = await context.queryClient.ensureQueryData(api.productQuery(params.productId))
     return { product }
@@ -53,7 +52,6 @@ const productRoute = createRoute({
 const cartRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/cart',
-  id: 'cart',
   loader: async ({ context }) => {
     if (!context.getToken()) {
       return { cart: null }
@@ -64,10 +62,22 @@ const cartRoute = createRoute({
   component: Cart
 })
 
+const checkoutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/checkout',
+  loader: async ({ context }) => {
+    if (!context.getToken()) {
+      return { cart: null }
+    }
+    const cart = await context.queryClient.ensureQueryData(api.cartQuery())
+    return { cart }
+  },
+  component: Checkout
+})
+
 const ordersRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/orders',
-  id: 'orders',
   loader: async ({ context }) => {
     if (!context.getToken()) {
       return { orders: [] }
@@ -81,7 +91,6 @@ const ordersRoute = createRoute({
 const orderDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/orders/$orderId',
-  id: 'order-detail',
   loader: async ({ context, params }) => {
     if (!context.getToken()) {
       return { order: null }
@@ -99,6 +108,7 @@ const routeTree = rootRoute.addChildren([
   onboardingRoute,
   productRoute,
   cartRoute,
+  checkoutRoute,
   ordersRoute,
   orderDetailRoute
 ])

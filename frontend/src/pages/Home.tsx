@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLoaderData } from '@tanstack/react-router'
+import { useLoaderData, useNavigate } from '@tanstack/react-router'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 
@@ -11,9 +11,10 @@ import type { Product } from '../types/api'
 type HomeLoaderData = { products: Product[] }
 
 const Home = (): JSX.Element => {
-  const initial = useLoaderData({ from: 'home' }) as HomeLoaderData | undefined
+  const initial = useLoaderData({}) as HomeLoaderData | undefined
   const { t } = useTranslation()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
 
   const productsQuery = useQuery<Product[]>({
@@ -27,7 +28,10 @@ const Home = (): JSX.Element => {
   })
 
   const handleAdd = (product: Product) => {
-    if (!isAuthenticated) return
+    if (!isAuthenticated) {
+      navigate({ to: '/login' })
+      return
+    }
     addMutation.mutate({ productId: product.id })
   }
 
@@ -43,7 +47,7 @@ const Home = (): JSX.Element => {
         <p>{t('home.subtitle')}</p>
       </section>
       <h2>{t('home.featured')}</h2>
-      <ProductGrid products={productsQuery.data ?? []} onAdd={isAuthenticated ? handleAdd : undefined} />
+      <ProductGrid products={productsQuery.data ?? []} onAdd={handleAdd} />
     </div>
   )
 }

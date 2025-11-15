@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 
 
 class Message(BaseModel):
@@ -31,8 +31,7 @@ class UserOut(UserBase):
     is_admin: bool
     created_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ProductBase(BaseModel):
@@ -62,8 +61,7 @@ class ProductOut(ProductBase):
     created_at: datetime
     updated_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CartItemCreate(BaseModel):
@@ -81,8 +79,7 @@ class CartProduct(BaseModel):
     price: float
     image_url: Optional[str]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CartItemOut(BaseModel):
@@ -90,8 +87,7 @@ class CartItemOut(BaseModel):
     quantity: int
     product: CartProduct
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CartResponse(BaseModel):
@@ -107,8 +103,7 @@ class OrderItemOut(BaseModel):
     subtotal_price: float
     product: Optional[CartProduct]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class OrderOut(BaseModel):
@@ -118,5 +113,4 @@ class OrderOut(BaseModel):
     created_at: datetime
     items: List[OrderItemOut]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

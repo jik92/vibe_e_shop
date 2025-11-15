@@ -11,8 +11,8 @@ const currency = (value: number) => new Intl.NumberFormat(undefined, { style: 'c
 type ProductLoaderData = { product: Product }
 
 const ProductDetail = (): JSX.Element => {
-  const loaderData = useLoaderData({ from: 'product-detail' }) as ProductLoaderData | undefined
-  const params = useParams({ from: 'product-detail' })
+  const loaderData = useLoaderData({}) as ProductLoaderData | undefined
+  const params = useParams({})
   const { isAuthenticated } = useAuth()
   const { t } = useTranslation()
   const queryClient = useQueryClient()

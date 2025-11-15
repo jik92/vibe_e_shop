@@ -6,7 +6,8 @@
     "login": "Login",
     "logout": "Logout",
     "register": "Register",
-    "onboarding": "Onboarding"
+    "onboarding": "Onboarding",
+    "checkout": "Checkout"
   },
   "home": {
     "title": "Shop curated electronics worldwide",
@@ -24,7 +25,17 @@
     "title": "Shopping cart",
     "empty": "Your cart is empty.",
     "total": "Total",
-    "checkout": "Place order"
+    "checkout": "Go to checkout"
+  },
+  "checkout": {
+    "title": "Secure payment",
+    "subtitle": "Review your order before confirming payment.",
+    "summary": "Order summary",
+    "pay": "Pay now",
+    "processing": "Processing...",
+    "success": "Payment successful! Redirecting to orders...",
+    "error": "Payment failed. Please try again.",
+    "empty": "Your cart is empty."
   },
   "orders": {
     "title": "Your orders",

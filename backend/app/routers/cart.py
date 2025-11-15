@@ -21,7 +21,7 @@ def _get_cart_items(db: Session, user_id: int):
 
 def _serialize_cart(items):
     total = sum((item.product.price or 0) * item.quantity for item in items)
-    cart_items = [schemas.CartItemOut.from_orm(item) for item in items]
+    cart_items = [schemas.CartItemOut.model_validate(item, from_attributes=True) for item in items]
     return schemas.CartResponse(items=cart_items, total_price=total)
 
 

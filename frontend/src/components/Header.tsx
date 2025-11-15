@@ -25,6 +25,7 @@ const Header = (): JSX.Element => {
           </Link>
           <Link to="/orders">{t('nav.orders')}</Link>
           <Link to="/onboarding">{t('nav.onboarding')}</Link>
+          <Link to="/checkout">{t('nav.checkout')}</Link>
         </div>
         <div className="actions">
           <LanguageSwitcher />
