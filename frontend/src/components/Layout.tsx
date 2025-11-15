@@ -7,7 +7,7 @@ const Layout = (): JSX.Element => {
   return (
     <div className="min-h-screen bg-[#F7F4EF] text-[#2A2A2A]">
       <Header />
-      <main className="mx-auto w-full max-w-[1440px] px-4 py-12 lg:px-12">
+      <main className="w-full px-0 pt-0 pb-12">
         <Outlet />
       </main>
       <Footer />

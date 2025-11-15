@@ -24,8 +24,8 @@ const Header = (): JSX.Element => {
   ]
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#E3DCCF] bg-[#F7F4EF]/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-[1440px] items-center gap-4 px-4 py-4 lg:px-12">
+    <header className="sticky top-0 z-40 border-b border-[#E3DCCF]  backdrop-blur ">
+      <div className="mx-auto flex w-full  items-center gap-4 px-4 py-4 lg:px-12">
         <Link to="/" className="inline-flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#7B6FF5] text-white">
             <InfinityIcon className="h-6 w-6" />
@@ -35,7 +35,7 @@ const Header = (): JSX.Element => {
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#7B6FF5]">AI Commerce</p>
           </div>
         </Link>
-        <nav className="flex flex-1 items-center justify-center gap-1 rounded-full border border-[#E3DCCF] bg-white/80 px-2 py-1 text-sm text-[#2A2A2A]">
+        <nav className="flex flex-1 w-fit items-center justify-center gap-1 rounded-full border border-[#E3DCCF] bg-white/80 px-2 py-1 text-sm text-[#2A2A2A]">
           {navItems.map((item) => (
             <NavItem key={item.to} {...item} />
           ))}

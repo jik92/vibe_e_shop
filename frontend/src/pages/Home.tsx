@@ -44,7 +44,7 @@ const Home = (): JSX.Element => {
         <title>E-Shop | {t('home.title')}</title>
         <meta name="description" content={t('home.subtitle')} />
       </Helmet>
-      <section className="grid gap-10 rounded-[40px] border border-[#E3DCCF] bg-soft-gradient px-6 py-12 shadow-xl lg:grid-cols-[1.3fr_minmax(0,1fr)] lg:px-16 lg:py-20">
+      <section className="relative grid min-h-[90vh] w-full gap-12 bg-soft-gradient px-6 py-20 shadow-[0_60px_160px_rgba(122,111,245,0.18)] lg:grid-cols-[1.3fr_minmax(0,1fr)] lg:px-32">
         <div className="space-y-6">
           <Badge variant="secondary" className="w-fit gap-2 rounded-full bg-white/80 text-[#2A2A2A]">
             <Sparkles className="h-4 w-4 text-[#7B6FF5]" />
@@ -70,8 +70,8 @@ const Home = (): JSX.Element => {
             <StatCard label={t('home.stat_support')} value="4.9/5" />
           </div>
         </div>
-        <div className="relative overflow-hidden rounded-[32px] border border-white/40 bg-white/70 p-6">
-          <div className="absolute inset-y-6 left-6 w-1 bg-[#E3DCCF]" />
+        <div className="relative overflow-hidden rounded-[32px] bg-white/70 p-8 shadow-[0_30px_120px_rgba(122,111,245,0.18)]">
+          <div className="absolute inset-y-6 left-6 w-1 bg-gradient-to-b from-[#7B6FF5] to-transparent" />
           <div className="relative flex h-full flex-col gap-4 pl-6">
             {slides.map((slide) => (
               <article
@@ -89,7 +89,36 @@ const Home = (): JSX.Element => {
       </section>
 
 
-      <section className="space-y-4">
+      <section className="space-y-6 px-6 lg:px-24">
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.4em] text-[#7B6FF5]">Slide experience</p>
+            <h2 className="text-4xl font-semibold text-[#2A2A2A]">Design cinematic workflows.</h2>
+          </div>
+          <p className="max-w-2xl text-sm text-[#4F4B45]">
+            Drag prospects through multilingual onboarding, preview AI-guided journeys, and replay each touchpoint from one widescreen timeline.
+          </p>
+        </div>
+        <div className="overflow-x-auto pb-4">
+          <div className="flex min-w-[600px] gap-4">
+            {slides.map((slide) => (
+              <div
+                key={`track-${slide.title}`}
+                className="min-w-[280px] flex-1 rounded-[28px] border border-[#E3DCCF] bg-white/80 p-5 transition hover:-translate-y-1 hover:border-[#7B6FF5]"
+              >
+                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-[#7B6FF5]">
+                  <PanelsTopLeft className="h-4 w-4" />
+                  {slide.tag}
+                </div>
+                <p className="mt-4 text-lg font-semibold text-[#2A2A2A]">{slide.title}</p>
+                <p className="mt-2 text-sm text-[#4F4B45]">{slide.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="space-y-4 px-6 lg:px-24">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm uppercase tracking-wide text-[#7B6FF5]">{t('home.featured')}</p>
