@@ -56,10 +56,10 @@ const Home = (): JSX.Element => {
           </div>
           <div className="flex flex-wrap gap-3">
             <Link to="/onboarding" className="inline-flex">
-              <Button className="rounded-full bg-[#7B6FF5] px-8 py-6 text-base text-white hover:bg-[#A69CFF]">{t('home.cta_primary')}</Button>
+              <Button className="rounded-full px-8 py-6 text-base">{t('home.cta_primary')}</Button>
             </Link>
             <Link to="/orders" className="inline-flex">
-              <Button variant="outline" className="rounded-full border-2 border-[#2A2A2A]/15 bg-white px-8 py-6 text-base text-[#2A2A2A]">
+              <Button variant="ghost" className="rounded-full px-8 py-6 text-base text-[#2A2A2A]">
                 {t('home.cta_secondary')}
               </Button>
             </Link>

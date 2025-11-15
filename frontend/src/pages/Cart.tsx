@@ -41,7 +41,7 @@ const CartPage = (): JSX.Element => {
         description={t('checkout.subtitle')}
         action={
           <Link to="/login" className="inline-flex">
-            <Button>{t('forms.login')}</Button>
+            <Button variant="ghost">{t('forms.login')}</Button>
           </Link>
         }
       />
@@ -55,7 +55,7 @@ const CartPage = (): JSX.Element => {
         description={t('home.subtitle')}
         action={
           <Link to="/" className="inline-flex">
-            <Button variant="outline">{t('home.featured')}</Button>
+            <Button variant="ghost">{t('home.featured')}</Button>
           </Link>
         }
       />
@@ -69,7 +69,7 @@ const CartPage = (): JSX.Element => {
           <p className="text-sm uppercase tracking-wide text-muted-foreground">{t('cart.items')}</p>
           <h2 className="text-3xl font-semibold text-slate-900">{t('cart.title')}</h2>
         </div>
-        <Badge variant="accent" className="bg-slate-900 text-white">
+        <Badge variant="accent" className="bg-[#7B6FF5] text-white">
           {data.items.length} {t('cart.items')}
         </Badge>
       </div>
@@ -94,7 +94,7 @@ const CartPage = (): JSX.Element => {
               <span>{t('cart.total')}</span>
               <span>{formatCurrency(data.total_price)}</span>
             </div>
-            <Button className="w-full rounded-2xl bg-slate-900 text-white hover:bg-slate-800" onClick={() => navigate({ to: '/checkout' })}>
+            <Button className="w-full rounded-full" onClick={() => navigate({ to: '/checkout' })}>
               {t('cart.checkout')}
             </Button>
           </CardContent>

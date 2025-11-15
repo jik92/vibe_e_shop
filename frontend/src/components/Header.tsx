@@ -93,7 +93,7 @@ const Header = (): JSX.Element => {
         <div className="flex items-center justify-end gap-2">
           <LanguageSwitcher />
           <Link to="/checkout" className="hidden sm:inline-flex">
-            <Button variant="outline" size="sm" className="relative rounded-full border-[#7B6FF5] px-4 text-[#2A2A2A] hover:bg-[#F0EAFD]">
+            <Button variant="ghost" size="sm" className="relative rounded-full px-4 text-[#2A2A2A]">
               <ShoppingCart className="h-4 w-4" />
               {cartCount > 0 && (
                 <span className="absolute -right-2 -top-2 rounded-full bg-[#7B6FF5] px-2 py-[2px] text-xs font-semibold text-white">
@@ -104,11 +104,7 @@ const Header = (): JSX.Element => {
           </Link>
           {isAuthenticated ? (
             <div className="relative" ref={userMenuRef}>
-              <Button
-                size="sm"
-                className="gap-2 rounded-full bg-[#7B6FF5] px-5 text-white hover:bg-[#A69CFF]"
-                onClick={() => setUserMenuOpen((prev) => !prev)}
-              >
+              <Button size="sm" variant="ghost" className="gap-2 rounded-full px-5 text-[#2A2A2A]" onClick={() => setUserMenuOpen((prev) => !prev)}>
                 <span className="truncate">{user?.email}</span>
                 <ChevronDown className="h-4 w-4" />
               </Button>
@@ -145,7 +141,7 @@ const Header = (): JSX.Element => {
             </div>
           ) : (
             <Link to="/login" className="inline-flex">
-              <Button size="sm" className="rounded-full bg-[#2A2A2A] px-5 text-white hover:bg-[#4F4B45]">
+              <Button size="sm" variant="ghost" className="rounded-full px-5 text-[#2A2A2A]">
                 {t('nav.login')}
               </Button>
             </Link>

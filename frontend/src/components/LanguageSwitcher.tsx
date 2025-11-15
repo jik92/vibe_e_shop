@@ -15,13 +15,7 @@ const LanguageSwitcher = (): JSX.Element => {
   }
 
   return (
-    <Button
-      type="button"
-      size="sm"
-      variant="outline"
-      className="gap-2 rounded-full border-[#E3DCCF] bg-white/70 text-[#2A2A2A] hover:bg-[#FBFAF7]"
-      onClick={handleSwitch}
-    >
+    <Button type="button" size="sm" variant="ghost" className="gap-2 rounded-full text-[#2A2A2A]" onClick={handleSwitch}>
       <Globe className="h-4 w-4" />
       {nextLanguage === 'zh' ? '中文' : 'EN'}
     </Button>

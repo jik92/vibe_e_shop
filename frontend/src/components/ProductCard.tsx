@@ -47,11 +47,7 @@ const ProductCard = ({ product, onAdd }: ProductCardProps): JSX.Element => {
       </CardContent>
       {onAdd && (
         <CardFooter>
-          <Button
-            className="w-full gap-2 rounded-full bg-[#7B6FF5] text-white hover:bg-[#A69CFF]"
-            onClick={() => onAdd(product)}
-            disabled={!inStock}
-          >
+          <Button variant="ghost" className="w-full gap-2 rounded-full text-[#2A2A2A]" onClick={() => onAdd(product)} disabled={!inStock}>
             <ShoppingCart className="h-4 w-4" />
             {t('buttons.add_to_cart')}
           </Button>
