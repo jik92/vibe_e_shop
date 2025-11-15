@@ -43,6 +43,9 @@ services:
       - backend
     ports:
       - '3000:3000'
+    volumes:
+      - ./frontend:/workspace/frontend:ro
+      - ./shared:/workspace/shared:ro
 
 volumes:
   db_data:
