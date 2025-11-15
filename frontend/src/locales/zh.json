@@ -53,7 +53,10 @@
     "status": "状态",
     "total": "合计",
     "items": "订单",
-    "back": "返回订单列表"
+    "back": "返回订单列表",
+    "items_column": "商品内容",
+    "purchased_at": "购买时间",
+    "actions": "操作"
   },
   "onboarding": {
     "title": "欢迎来到商店",

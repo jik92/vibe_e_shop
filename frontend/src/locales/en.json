@@ -53,7 +53,10 @@
     "status": "Status",
     "total": "Total",
     "items": "Orders",
-    "back": "Back to orders"
+    "back": "Back to orders",
+    "items_column": "Items",
+    "purchased_at": "Purchased at",
+    "actions": "Actions"
   },
   "onboarding": {
     "title": "Welcome to the store",
