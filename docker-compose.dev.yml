@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: eshop
+      POSTGRES_USER: eshop
+      POSTGRES_PASSWORD: eshop
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eshop -d eshop"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - db_data_dev:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      DATABASE_URL: postgresql+psycopg2://eshop:eshop@db:5432/eshop
+      SECRET_KEY: supersecret
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin123
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./backend:/app/backend
+      - ./shared:/app/shared
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - '8000:8000'
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+      FRONTEND_MODE: dev
+    volumes:
+      - ./frontend:/workspace/frontend
+      - ./shared:/workspace/shared
+    depends_on:
+      - backend
+    ports:
+      - '3000:3000'
+
+volumes:
+  db_data_dev:

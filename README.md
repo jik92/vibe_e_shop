@@ -22,6 +22,19 @@ Services:
 
 The frontend build step automatically pre-renders the homepage into `frontend/dist/index.html`, so bots get a fully populated product list without running JavaScript.
 
+## Development Mode (Hot Reload)
+
+For live reload on both FastAPI and Vite, use the dev compose file:
+
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+- Backend: `uvicorn --reload` watches `backend/` + `shared/`.
+- Frontend: `pnpm dev --host` runs from your mounted `frontend/` directory; edits trigger instant HMR.
+
+Stop with `Ctrl+C` and remove containers via `docker compose ... down` when finished.
+
 ## Default Data & Credentials
 
 - Database: `postgresql://eshop:eshop@localhost:5432/eshop`

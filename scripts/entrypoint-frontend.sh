@@ -1,6 +1,11 @@
 #!/bin/sh
 set -euo pipefail
 
+MODE="${FRONTEND_MODE:-build}"
+FRONTEND_DIR="/app/frontend"
+WORKSPACE_DIR="/workspace/frontend"
+WORKSPACE_SHARED_DIR="/workspace/shared"
+
 sync_dir() {
   src="$1"
   dest="$2"
@@ -12,10 +17,33 @@ sync_dir() {
   fi
 }
 
-sync_dir "/workspace/frontend" "/app/frontend" "frontend"
+run_dev() {
+  WORK_DIR="$WORKSPACE_DIR"
+  if [ ! -d "$WORK_DIR" ]; then
+    echo "ℹ Workspace mount not detected, falling back to baked sources."
+    WORK_DIR="$FRONTEND_DIR"
+  else
+    echo "▶ Using live workspace at $WORK_DIR"
+  fi
+
+  if [ -d "$WORKSPACE_SHARED_DIR" ]; then
+    ln -sfn "$WORKSPACE_SHARED_DIR" "$WORK_DIR/shared"
+  fi
+
+  cd "$WORK_DIR"
+  pnpm install --frozen-lockfile
+  exec pnpm run dev --host 0.0.0.0 --port 3000
+}
+
+if [ "$MODE" = "dev" ]; then
+  run_dev
+  exit 0
+fi
+
+sync_dir "/workspace/frontend" "$FRONTEND_DIR" "frontend"
 sync_dir "/workspace/shared" "/app/shared" "shared"
 
-cd /app/frontend
+cd "$FRONTEND_DIR"
 pnpm install --frozen-lockfile
 pnpm run build
 
