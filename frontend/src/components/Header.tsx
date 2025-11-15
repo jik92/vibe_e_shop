@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ChevronDown, InfinityIcon, Sparkles } from 'lucide-react'
+import { ChevronDown, InfinityIcon, Sparkles, ShoppingCart } from 'lucide-react'
 
 import { useAuth } from '../contexts/AuthContext'
 import { useCartQuery } from '../hooks/useCartQuery'
@@ -93,12 +93,8 @@ const Header = (): JSX.Element => {
         <div className="flex items-center justify-end gap-2">
           <LanguageSwitcher />
           <Link to="/checkout" className="hidden sm:inline-flex">
-            <Button
-              variant="outline"
-              size="sm"
-              className="relative gap-2 rounded-full border-[#7B6FF5] px-5 text-[#2A2A2A] hover:bg-[#F0EAFD]"
-            >
-              {t('nav.checkout')}
+            <Button variant="outline" size="sm" className="relative rounded-full border-[#7B6FF5] px-4 text-[#2A2A2A] hover:bg-[#F0EAFD]">
+              <ShoppingCart className="h-4 w-4" />
               {cartCount > 0 && (
                 <span className="absolute -right-2 -top-2 rounded-full bg-[#7B6FF5] px-2 py-[2px] text-xs font-semibold text-white">
                   {cartCount}
