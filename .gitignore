@@ -5,6 +5,7 @@ frontend/dist/
 frontend/dist-ssr/
 frontend/.vite/
 frontend/.pnpm/
+frontend/.pnpm-store/
 
 # Python
 __pycache__/

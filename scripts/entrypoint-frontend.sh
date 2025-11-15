@@ -1,6 +1,8 @@
 #!/bin/sh
 set -euo pipefail
 
+export CI="${CI:-true}"
+
 MODE="${FRONTEND_MODE:-build}"
 FRONTEND_DIR="/app/frontend"
 WORKSPACE_DIR="/workspace/frontend"
@@ -24,10 +26,6 @@ run_dev() {
     WORK_DIR="$FRONTEND_DIR"
   else
     echo "▶ Using live workspace at $WORK_DIR"
-  fi
-
-  if [ -d "$WORKSPACE_SHARED_DIR" ]; then
-    ln -sfn "$WORKSPACE_SHARED_DIR" "$WORK_DIR/shared"
   fi
 
   cd "$WORK_DIR"
