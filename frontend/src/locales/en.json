@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Home",
+    "cart": "Cart",
+    "orders": "Orders",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "onboarding": "Onboarding"
+  },
+  "home": {
+    "title": "Shop curated electronics worldwide",
+    "subtitle": "Localized experience, multi-language support, instant checkout, and transparent orders.",
+    "featured": "Featured products"
+  },
+  "forms": {
+    "email": "Email",
+    "password": "Password",
+    "confirm": "Confirm",
+    "login": "Sign in",
+    "register": "Create account"
+  },
+  "cart": {
+    "title": "Shopping cart",
+    "empty": "Your cart is empty.",
+    "total": "Total",
+    "checkout": "Place order"
+  },
+  "orders": {
+    "title": "Your orders",
+    "empty": "You have not placed an order yet.",
+    "status": "Status",
+    "total": "Total"
+  },
+  "onboarding": {
+    "title": "Welcome to the store",
+    "body": "Start adding products you love and localize the experience with one click."
+  },
+  "buttons": {
+    "add_to_cart": "Add to cart",
+    "update": "Update",
+    "remove": "Remove"
+  },
+  "messages": {
+    "login_success": "Logged in",
+    "logout_success": "Logged out"
+  }
+}

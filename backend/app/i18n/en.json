@@ -1,0 +1,15 @@
+{
+  "errors": {
+    "invalid_credentials": "Invalid email or password.",
+    "user_exists": "User already exists.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "product_not_found": "Product not found.",
+    "cart_empty": "Your cart is empty.",
+    "insufficient_stock": "Insufficient stock for one or more products."
+  },
+  "messages": {
+    "order_created": "Order created successfully.",
+    "item_updated": "Cart updated successfully.",
+    "item_removed": "Item removed from cart."
+  }
+}

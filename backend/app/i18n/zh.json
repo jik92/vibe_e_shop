@@ -1,0 +1,15 @@
+{
+  "errors": {
+    "invalid_credentials": "邮箱或密码不正确。",
+    "user_exists": "用户已存在。",
+    "unauthorized": "您没有执行此操作的权限。",
+    "product_not_found": "未找到该商品。",
+    "cart_empty": "购物车为空。",
+    "insufficient_stock": "商品库存不足。"
+  },
+  "messages": {
+    "order_created": "订单创建成功。",
+    "item_updated": "购物车更新成功。",
+    "item_removed": "商品已从购物车移除。"
+  }
+}

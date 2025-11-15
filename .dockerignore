@@ -1,0 +1,13 @@
+.git
+.gitignore
+node_modules
+frontend/node_modules
+frontend/dist
+frontend/dist-ssr
+frontend/.vite
+backend/__pycache__
+**/__pycache__
+**/*.pyc
+.env
+README.md
+shared/.DS_Store

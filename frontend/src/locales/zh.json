@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "首页",
+    "cart": "购物车",
+    "orders": "订单",
+    "login": "登录",
+    "logout": "退出",
+    "register": "注册",
+    "onboarding": "引导"
+  },
+  "home": {
+    "title": "全球精选电子产品",
+    "subtitle": "多语言体验、快捷结账以及透明的订单跟踪。",
+    "featured": "精选商品"
+  },
+  "forms": {
+    "email": "邮箱",
+    "password": "密码",
+    "confirm": "确认",
+    "login": "登录",
+    "register": "注册"
+  },
+  "cart": {
+    "title": "购物车",
+    "empty": "购物车为空。",
+    "total": "合计",
+    "checkout": "提交订单"
+  },
+  "orders": {
+    "title": "我的订单",
+    "empty": "暂未下单。",
+    "status": "状态",
+    "total": "合计"
+  },
+  "onboarding": {
+    "title": "欢迎来到商店",
+    "body": "加入你喜欢的商品，并可一键切换语言体验。"
+  },
+  "buttons": {
+    "add_to_cart": "加入购物车",
+    "update": "更新",
+    "remove": "移除"
+  },
+  "messages": {
+    "login_success": "登录成功",
+    "logout_success": "已退出"
+  }
+}
