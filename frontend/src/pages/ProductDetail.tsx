@@ -5,7 +5,6 @@ import { BadgeCheck, CheckCircle2, Heart, Truck } from 'lucide-react'
 
 import { api } from '../api/client'
 import { Button } from '../components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { Badge } from '../components/ui/badge'
 import { useAuth } from '../contexts/AuthContext'
 import type { Product } from '../types/api'
@@ -115,6 +114,7 @@ const ProductDetail = (): JSX.Element => {
           })}
         </script>
       </Helmet>
+      {isSpecial ? (
         <SpecialProductView
           product={product}
           inStock={inStock}
@@ -123,7 +123,49 @@ const ProductDetail = (): JSX.Element => {
           addPending={addMutation.isPending}
           buyPending={buyMutation.isPending}
         />
+      ) : (
+        <StandardProductView product={product} inStock={inStock} onAdd={handleAdd} />
+      )}
+    </div>
+  )
+}
 
+const StandardProductView = ({
+  product,
+  inStock,
+  onAdd
+}: {
+  product: Product
+  inStock: boolean
+  onAdd: () => void
+}) => {
+  const { t } = useTranslation()
+  return (
+    <div className="mx-auto max-w-5xl space-y-8 px-0 py-6">
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div className="rounded-3xl border border-[#E5E5E5] bg-white p-4">
+          {product.image_url ? (
+            <img src={product.image_url} alt={product.name} className="h-full w-full rounded-2xl object-cover" />
+          ) : (
+            <div className="flex h-full min-h-[320px] items-center justify-center text-6xl">📦</div>
+          )}
+        </div>
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{t('product.price')}</p>
+            <h1 className="text-4xl font-semibold text-[#0d0d0d]">{product.name}</h1>
+            <p className="text-sm text-muted-foreground">{product.description}</p>
+          </div>
+          <div className="text-3xl font-semibold text-[#0d0d0d]">{formatCurrency(product.price)}</div>
+          <div className="inline-flex items-center gap-2 rounded-2xl border border-[#E5E5E5] px-4 py-2 text-sm text-muted-foreground">
+            <BadgeCheck className="h-4 w-4 text-[#0d0d0d]" />
+            {t('product.stock_label', { count: product.stock ?? 0 })}
+          </div>
+          <Button className="rounded-full" onClick={onAdd} disabled={!inStock}>
+            {t('buttons.add_to_cart')}
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

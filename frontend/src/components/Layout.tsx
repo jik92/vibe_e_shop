@@ -11,7 +11,7 @@ const Layout = (): JSX.Element => {
     return (
     <div className="min-h-screen bg-[#F7F4EF] text-[#2A2A2A]">
       <Header />
-      <main className={`w-full px-0 ${isHomePage ? 'pt-0 pb-12' : 'py-12'}`}>
+      <main className={`w-full pt-0 pb-12`}>
         <Outlet />
       </main>
       <Footer />

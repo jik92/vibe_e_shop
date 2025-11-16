@@ -38,7 +38,7 @@ const ProductsPage = (): JSX.Element => {
   }
 
   return (
-    <div className="space-y-8 px-6 py-10 lg:px-12">
+    <div className="mx-auto max-w-6xl space-y-8 px-6 py-10">
       <Helmet>
         <title>{`${SITE_NAME} | Catalog`}</title>
         <meta
@@ -50,28 +50,35 @@ const ProductsPage = (): JSX.Element => {
 
       <section className="space-y-4">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-muted-foreground">{t('home.featured')}</p>
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Catalog</p>
             <h1 className="text-4xl font-semibold text-[#0d0d0d]">All products</h1>
-            <p className="text-sm text-muted-foreground">Search the full catalog or jump to specialized collections.</p>
+            <p className="text-sm text-muted-foreground">Discover stationery, devices, and curated drops in one grid.</p>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <div className="relative flex-1">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                className="h-11 rounded-full bg-white pl-9 pr-4"
+                className="h-10 rounded-full bg-white pl-9 pr-4"
                 placeholder="Search products..."
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
               />
             </div>
             <Link to="/collections/birthday-card" className="inline-flex">
-              <Button variant="ghost" className="gap-2 rounded-full px-4">
+              <Button variant="ghost" className="gap-2 rounded-full px-3 text-[#0d0d0d]">
                 <SlidersHorizontal className="h-4 w-4" />
-                Curated drop
+                Limited drop
               </Button>
             </Link>
           </div>
+        </div>
+        <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+          {['Stationery', 'Tech', 'Accessories', 'Limited'].map((tag) => (
+            <span key={tag} className="rounded-full border border-[#E5E5E5] px-3 py-1 uppercase tracking-[0.2em]">
+              {tag}
+            </span>
+          ))}
         </div>
         <Badge variant="accent" className="rounded-full bg-[#0d0d0d] px-4 py-1 text-white">
           {filtered.length} items

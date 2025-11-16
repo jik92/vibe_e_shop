@@ -7,7 +7,10 @@ interface ProductGridProps {
 }
 
 const ProductGrid = ({ products, onAdd }: ProductGridProps): JSX.Element => (
-  <div className="flex flex-wrap justify-center gap-6">
+  <div
+    className="grid gap-6 justify-items-start"
+    style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 250px))' }}
+  >
     {products.map((product) => (
       <ProductCard key={product.id} product={product} onAdd={onAdd} />
     ))}
