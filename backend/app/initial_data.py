@@ -17,18 +17,25 @@ def load_seed_products() -> list[dict]:
 
 
 def seed_products(db: Session) -> None:
-  if db.query(Product).count() > 0:
-    return
   for item in load_seed_products():
-    product = Product(
-      name=item['name'],
-      description=item.get('description', ''),
-      price=item.get('price', 0),
-      image_url=item.get('image_url'),
-      is_active=item.get('is_active', True),
-      stock=item.get('stock', 0),
-    )
-    db.add(product)
+    product = db.query(Product).filter(Product.name == item['name']).first()
+    if product:
+      product.description = item.get('description', product.description)
+      product.price = item.get('price', product.price)
+      product.image_url = item.get('image_url', product.image_url)
+      product.is_active = item.get('is_active', product.is_active)
+      product.stock = item.get('stock', product.stock)
+    else:
+      db.add(
+        Product(
+          name=item['name'],
+          description=item.get('description', ''),
+          price=item.get('price', 0),
+          image_url=item.get('image_url'),
+          is_active=item.get('is_active', True),
+          stock=item.get('stock', 0),
+        )
+      )
   db.commit()
 
 

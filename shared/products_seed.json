@@ -30,5 +30,13 @@
     "image_url": "https://images.unsplash.com/photo-1508898578281-774ac4893c0e",
     "stock": 60,
     "is_active": true
+  },
+  {
+    "name": "Birthday Bakery Blue Gold Card",
+    "description": "Foil-stamped greeting card inspired by artisan bakery palettes with luxe blue and gold accents.",
+    "price": 14.5,
+    "image_url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "stock": 250,
+    "is_active": true
   }
 ]

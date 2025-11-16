@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLoaderData, useParams } from '@tanstack/react-router'
+import { Link, useLoaderData, useNavigate, useParams } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
-import { BadgeCheck } from 'lucide-react'
+import { BadgeCheck, CheckCircle2, Heart, Truck } from 'lucide-react'
 
 import { api } from '../api/client'
 import { Button } from '../components/ui/button'
@@ -14,107 +14,220 @@ import { SITE_NAME, absoluteUrl } from '../config/seo'
 import { Helmet } from 'react-helmet-async'
 
 type ProductLoaderData = { product: Product }
+const SPECIAL_PRODUCT_NAME = 'Birthday Bakery Blue Gold Card'
 
 const ProductDetail = (): JSX.Element => {
   const loaderData = useLoaderData({}) as ProductLoaderData | undefined
-  const params = useParams({})
+  const params = useParams({ strict: false })
   const { isAuthenticated } = useAuth()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
+
+  const productId = params?.productId
 
   const { data } = useQuery<Product>({
-    ...api.productQuery(params.productId),
-    initialData: loaderData?.product
+    ...api.productQuery(productId ?? ''),
+    initialData: loaderData?.product,
+    enabled: Boolean(productId)
   })
 
-  const mutation = useMutation({
+  const product = productId ? data : loaderData?.product
+
+  const addMutation = useMutation({
     mutationFn: ({ productId, quantity }: { productId: number; quantity: number }) =>
       api.addToCart({ product_id: productId, quantity }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['cart'] })
   })
 
-  if (!data) {
+  const buyMutation = useMutation({
+    mutationFn: async (productId: number) => {
+      await api.addToCart({ product_id: productId, quantity: 1 })
+      return api.createOrder()
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+      queryClient.invalidateQueries({ queryKey: ['orders'] })
+      navigate({ to: '/orders' })
+    }
+  })
+
+  if (!product) {
     return <p>Product not found.</p>
   }
 
-  const inStock = (data.stock ?? 0) > 0
-  const productUrl = absoluteUrl(`/products/${data.id}`)
-  const productImage = data.image_url ? data.image_url : absoluteUrl('/img.png')
+  const inStock = (product.stock ?? 0) > 0
+  const canonicalPath = productId ? `/products/${product.id}` : '/collections/birthday-card'
+  const productUrl = absoluteUrl(canonicalPath)
+  const productImage = product.image_url ? product.image_url : absoluteUrl('/img.png')
+
+  const handleAdd = () => {
+    if (!isAuthenticated) {
+      navigate({ to: '/login' })
+      return
+    }
+    addMutation.mutate({ productId: product.id, quantity: 1 })
+  }
+
+  const handleBuy = () => {
+    if (!isAuthenticated) {
+      navigate({ to: '/login' })
+      return
+    }
+    buyMutation.mutate(product.id)
+  }
+
+  const isSpecial = product.name === SPECIAL_PRODUCT_NAME
 
   return (
-    <Card className="mx-auto max-w-3xl rounded-[32px] border border-slate-100 bg-white/95 shadow-2xl">
+    <div>
       <Helmet>
-        <title>{`${data.name} | ${SITE_NAME}`}</title>
-        <meta name="description" content={data.description} />
+        <title>{`${product.name} | ${SITE_NAME}`}</title>
+        <meta name="description" content={product.description} />
         <link rel="canonical" href={productUrl} />
         <meta property="og:type" content="product" />
-        <meta property="og:title" content={`${data.name} | ${SITE_NAME}`} />
-        <meta property="og:description" content={data.description} />
+        <meta property="og:title" content={`${product.name} | ${SITE_NAME}`} />
+        <meta property="og:description" content={product.description} />
         <meta property="og:url" content={productUrl} />
         <meta property="og:image" content={productImage} />
-        <meta property="product:price:amount" content={String(data.price)} />
+        <meta property="product:price:amount" content={String(product.price)} />
         <meta property="product:price:currency" content="USD" />
         <meta property="product:availability" content={inStock ? 'in stock' : 'out of stock'} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${data.name} | ${SITE_NAME}`} />
-        <meta name="twitter:description" content={data.description} />
+        <meta name="twitter:title" content={`${product.name} | ${SITE_NAME}`} />
+        <meta name="twitter:description" content={product.description} />
         <meta name="twitter:image" content={productImage} />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org/',
             '@type': 'Product',
-            name: data.name,
+            name: product.name,
             image: productImage,
-            description: data.description,
-            sku: data.id,
+            description: product.description,
+            sku: product.id,
             offers: {
               '@type': 'Offer',
               url: productUrl,
               priceCurrency: 'USD',
-              price: data.price,
+              price: product.price,
               availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'
             }
           })}
         </script>
       </Helmet>
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-[28px] bg-slate-100 p-4">
-          {data.image_url ? (
-            <img src={data.image_url} alt={data.name} className="h-full w-full rounded-[24px] object-cover" />
-          ) : (
-            <div className="flex h-full min-h-[320px] items-center justify-center text-6xl">📱</div>
-          )}
-        </div>
-        <div className="flex flex-col">
-          <CardHeader className="space-y-4 p-0">
-            <CardTitle className="text-3xl text-slate-900">{data.name}</CardTitle>
-            <CardDescription className="text-base text-muted-foreground">{data.description}</CardDescription>
-            <Badge variant={inStock ? 'accent' : 'destructive'} className="w-fit rounded-full bg-slate-900 text-white">
-              {inStock ? t('product.in_stock') : t('product.out_of_stock')}
-            </Badge>
-          </CardHeader>
-          <CardContent className="mt-auto space-y-4 p-0">
-            <p className="text-sm uppercase tracking-wide text-muted-foreground">{t('product.price')}</p>
-            <p className="text-4xl font-semibold text-slate-900">{formatCurrency(data.price)}</p>
-            <div className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 px-4 py-2 text-sm text-muted-foreground">
-              <BadgeCheck className="h-4 w-4 text-slate-900" />
-              {t('product.stock_label', { count: data.stock ?? 0 })}
-            </div>
-            {isAuthenticated && (
-              <Button
-                className="w-full rounded-2xl bg-slate-900 text-white hover:bg-slate-800"
-                size="lg"
-                disabled={!inStock}
-                onClick={() => mutation.mutate({ productId: data.id, quantity: 1 })}
-              >
-                {t('buttons.add_to_cart')}
-              </Button>
-            )}
-          </CardContent>
-        </div>
-      </div>
-    </Card>
+        <SpecialProductView
+          product={product}
+          inStock={inStock}
+          onAdd={handleAdd}
+          onBuy={handleBuy}
+          addPending={addMutation.isPending}
+          buyPending={buyMutation.isPending}
+        />
+
+    </div>
   )
 }
+
+const SpecialProductView = ({
+  product,
+  inStock,
+  onAdd,
+  onBuy,
+  addPending,
+  buyPending
+}: {
+  product: Product
+  inStock: boolean
+  onAdd: () => void
+  onBuy: () => void
+  addPending: boolean
+  buyPending: boolean
+}) => (
+  <div className="space-y-12 px-0 py-6 lg:px-0">
+    <section className="grid gap-10 rounded-[32px] border border-[#E3E3E3] bg-white p-6 shadow-2xl lg:grid-cols-2 lg:p-10">
+      <div className="space-y-5">
+        <Badge variant="accent" className="rounded-full bg-black text-white">
+          Limited release
+        </Badge>
+        <h1 className="text-4xl font-semibold text-[#0d0d0d] lg:text-5xl">{product.name}</h1>
+        <p className="text-lg text-muted-foreground">
+          Inspired by artisan birthday cakes, this card combines blue velvet washes with gold foil hand lettering. Thick recycled cotton
+          stock holds embossed sprinkles for a tactile finish.
+        </p>
+        <div className="text-3xl font-semibold text-[#0d0d0d]">{formatCurrency(product.price)}</div>
+        <div className="flex flex-wrap gap-3">
+          <Button className="rounded-full px-6 py-3" onClick={onBuy} disabled={!inStock || buyPending}>
+            {buyPending ? 'Processing...' : 'Buy now'}
+          </Button>
+          <Button variant="ghost" className="rounded-full px-6 py-3 text-[#0d0d0d]" onClick={onAdd} disabled={!inStock || addPending}>
+            Add to cart
+          </Button>
+        </div>
+        <div className="flex flex-col gap-3 rounded-2xl border border-[#E3E3E3] bg-[#FBFBFB] p-4 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2">
+            <Truck className="h-4 w-4 text-black" />
+            <span>Ships worldwide within 3 business days.</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Heart className="h-4 w-4 text-black" />
+            <span>Foil-pressed in a carbon-neutral studio.</span>
+          </div>
+        </div>
+      </div>
+      <div className="rounded-[28px] bg-[#F6F6F6] p-4">
+        {product.image_url ? (
+          <img src={product.image_url} alt={`${product.name} preview`} className="h-full w-full rounded-[24px] object-cover" />
+        ) : (
+          <div className="flex h-full min-h-[320px] items-center justify-center text-6xl">🎂</div>
+        )}
+      </div>
+    </section>
+
+    <section className="grid gap-6 lg:grid-cols-3">
+      {specialFeatures.map((feature) => (
+        <article key={feature.title} className="rounded-3xl border border-[#E3E3E3] bg-white/80 p-5 text-[#0d0d0d]">
+          <h3 className="flex items-center gap-2 text-lg font-semibold">
+            <CheckCircle2 className="h-5 w-5 text-black" />
+            {feature.title}
+          </h3>
+          <p className="mt-2 text-sm text-muted-foreground">{feature.body}</p>
+        </article>
+      ))}
+    </section>
+
+    <section className="rounded-[32px] border border-[#E3E3E3] bg-white/80 p-6 text-sm text-muted-foreground lg:p-10">
+      <h2 className="text-2xl font-semibold text-[#0d0d0d]">Design notes</h2>
+      <p className="mt-3">
+        The palette mirrors fresh cream, glazed blueberries, and gold flake toppers. Each card ships with a powder blue envelope and reusable
+        keepsake sleeve. Perfect for baker-themed celebrations or artisan markets.
+      </p>
+      <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-[0.3em] text-[#0d0d0d]">
+        <span>Recycled cotton stock</span>
+        <span>Foil stamped</span>
+        <span>Blue velvet wash</span>
+      </div>
+      <div className="mt-6">
+        <Link to="/products/$productId" params={{ productId: product.id.toString() }} className="text-sm font-semibold text-[#0d0d0d] hover:text-[#7d7d7d]">
+          View technical specs ↗
+        </Link>
+      </div>
+    </section>
+  </div>
+)
+
+const specialFeatures = [
+  {
+    title: 'Hand-finished foil',
+    body: '24k gold-toned foil adds shimmer to every lettering stroke without smudging.'
+  },
+  {
+    title: 'Museum-grade texture',
+    body: '640gsm cotton stock with embossed sprinkles for a tactile bakery finish.'
+  },
+  {
+    title: 'Keepsake packaging',
+    body: 'Delivered inside a soft-touch sleeve so recipients can store the card long-term.'
+  }
+]
 
 export default ProductDetail

@@ -13,6 +13,7 @@ import Orders from './pages/Orders'
 import ProductDetail from './pages/ProductDetail'
 import Register from './pages/Register'
 import Checkout from './pages/Checkout'
+import Products from './pages/Products'
 
 export const queryClient = new QueryClient()
 
@@ -101,6 +102,27 @@ const orderDetailRoute = createRoute({
   component: OrderDetail
 })
 
+const birthdayCardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/collections/birthday-card',
+  loader: async ({ context }) => {
+    const products = await context.queryClient.ensureQueryData(api.productsQuery())
+    const product = products.find((item) => item.name === 'Birthday Bakery Blue Gold Card') ?? products[0]
+    return { product }
+  },
+  component: ProductDetail
+})
+
+const productsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/products',
+  loader: async ({ context }) => {
+    const products = await context.queryClient.ensureQueryData(api.productsQuery())
+    return { products }
+  },
+  component: Products
+})
+
 const routeTree = rootRoute.addChildren([
   homeRoute,
   loginRoute,
@@ -110,7 +132,9 @@ const routeTree = rootRoute.addChildren([
   cartRoute,
   checkoutRoute,
   ordersRoute,
-  orderDetailRoute
+  orderDetailRoute,
+  birthdayCardRoute,
+  productsRoute
 ])
 
 export const router = createRouter({

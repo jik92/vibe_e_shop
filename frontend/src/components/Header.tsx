@@ -24,32 +24,8 @@ const Header = (): JSX.Element => {
 
   const cartCount = useMemo(() => cart?.items?.reduce((acc, item) => acc + item.quantity, 0) ?? 0, [cart])
 
-  const dropdownItems = [
-    {
-      label: t('nav.home'),
-      description: t('home.subtitle'),
-      to: '/'
-    },
-    {
-      label: t('nav.onboarding'),
-      description: t('onboarding.body'),
-      to: '/onboarding'
-    }
-  ]
-
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
-
-  const companyLinks = [
-    { label: 'About PulseCart', body: 'Our mission and team behind the AI commerce platform.', href: 'https://example.com/about' },
-    { label: 'Careers', body: 'Join the product, design, and research teams shipping weekly.', href: 'https://example.com/careers' }
-  ]
-
-  const resourceLinks = [
-    { label: 'Documentation', body: 'Integrate auth, orders, and localization quickly.', href: 'https://example.com/docs' },
-    { label: 'Status', body: 'Live metrics for API health and uptime transparency.', href: 'https://example.com/status' },
-    { label: 'Changelog', body: 'Monthly drops covering storefront releases.', href: 'https://example.com/changelog' }
-  ]
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -75,69 +51,22 @@ const Header = (): JSX.Element => {
         </Link>
 
         <NavigationMenu className="justify-center ml-3">
-          <NavigationMenuList className="items-center gap-1 rounded-full bg-white/70 px-2 py-1 text-sm shadow-[0_10px_30px_rgba(122,111,245,0.08)] backdrop-blur">
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="rounded-full px-3 py-2 text-[#2A2A2A] hover:bg-[#F0EAFD]">Product</NavigationMenuTrigger>
-              <NavigationMenuContent className="mt-4 rounded-3xl border border-[#E3DCCF] bg-white p-6 shadow-2xl">
-                <ul className="grid gap-4 lg:w-[420px]">
-                  {dropdownItems.map((item) => (
-                    <li key={item.label}>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to={item.to}
-                          className="block rounded-2xl border border-transparent p-4 transition hover:border-[#E3DCCF] hover:bg-[#FBFAF7]"
-                        >
-                          <p className="text-sm font-semibold text-[#2A2A2A]">{item.label}</p>
-                          <p className="text-xs text-[#4F4B45]">{item.description}</p>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="rounded-full px-3 py-2 text-[#2A2A2A] hover:bg-[#F0EAFD]">Company</NavigationMenuTrigger>
-              <NavigationMenuContent className="mt-4 rounded-3xl border border-[#E3DCCF] bg-white p-6 shadow-2xl">
-                <ul className="grid gap-4 lg:w-[420px]">
-                  {companyLinks.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="block rounded-2xl border border-transparent p-4 transition hover:border-[#E3DCCF] hover:bg-[#FBFAF7]"
-                      >
-                        <p className="text-sm font-semibold text-[#2A2A2A]">{link.label}</p>
-                        <p className="text-xs text-[#4F4B45]">{link.body}</p>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="rounded-full px-3 py-2 text-[#2A2A2A] hover:bg-[#F0EAFD]">Resources</NavigationMenuTrigger>
-              <NavigationMenuContent className="mt-4 rounded-3xl border border-[#E3DCCF] bg-white p-6 shadow-2xl">
-                <ul className="grid gap-4 lg:w-[420px]">
-                  {resourceLinks.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="block rounded-2xl border border-transparent p-4 transition hover:border-[#E3DCCF] hover:bg-[#FBFAF7]"
-                      >
-                        <p className="text-sm font-semibold text-[#2A2A2A]">{link.label}</p>
-                        <p className="text-xs text-[#4F4B45]">{link.body}</p>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+          <NavigationMenuList className="items-center gap-1 rounded-full bg-white/70 px-2 py-1 text-sm shadow-[0_10px_30px_rgba(0,0,0,0.08)] backdrop-blur">
+            {[
+              { label: t('nav.home'), to: '/' },
+              { label: t('nav.products'), to: '/products' },
+              { label: 'Collection', to: '/collections/birthday-card' },
+              { label: t('nav.onboarding'), to: '/onboarding' }
+            ].map((item) => (
+              <NavigationMenuItem key={item.to}>
+                <NavigationMenuLink asChild>
+                  <Link to={item.to} className="inline-flex items-center rounded-full px-3 py-2 text-[#2A2A2A] transition hover:bg-[#F0F0F0]">
+                    {item.label}
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
           </NavigationMenuList>
-          <NavigationMenuIndicator />
         </NavigationMenu>
 
         <div className="flex items-center justify-end gap-2">

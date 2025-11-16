@@ -84,9 +84,9 @@ const Home = (): JSX.Element => {
             <Link to="/onboarding" className="inline-flex">
               <Button className="rounded-full px-8 py-6 text-base">{t('home.cta_primary')}</Button>
             </Link>
-            <Link to="/orders" className="inline-flex">
+            <Link to="/collections/birthday-card" className="inline-flex">
               <Button variant="ghost" className="rounded-full px-8 py-6 text-base text-[#2A2A2A]">
-                {t('home.cta_secondary')}
+                {t('home.cta_special')}
               </Button>
             </Link>
           </div>

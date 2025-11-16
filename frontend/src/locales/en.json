@@ -3,6 +3,7 @@
     "home": "Home",
     "cart": "Cart",
     "orders": "Orders",
+    "products": "Products",
     "login": "Login",
     "logout": "Logout",
     "register": "Register",
@@ -16,6 +17,7 @@
     "badge": "Flagship drops weekly",
     "cta_primary": "Explore catalog",
     "cta_secondary": "Track your orders",
+    "cta_special": "View birthday bakery card",
     "stat_products": "Products ready to ship",
     "stat_delivery": "Global destinations",
     "stat_support": "Avg. support rating"

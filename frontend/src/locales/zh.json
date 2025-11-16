@@ -3,6 +3,7 @@
     "home": "首页",
     "cart": "购物车",
     "orders": "订单",
+    "products": "全部产品",
     "login": "登录",
     "logout": "退出",
     "register": "注册",
@@ -16,6 +17,7 @@
     "badge": "每周上新",
     "cta_primary": "浏览商品",
     "cta_secondary": "查看订单",
+    "cta_special": "查看生日贺卡",
     "stat_products": "现货商品",
     "stat_delivery": "可配送国家",
     "stat_support": "客服评分"
