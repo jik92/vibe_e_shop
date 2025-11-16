@@ -119,11 +119,18 @@ const Header = (): JSX.Element => {
               )}
             </div>
           ) : (
-            <Link to="/login" className="inline-flex">
-              <Button size="sm" variant="ghost" className="rounded-full px-5 text-[#2A2A2A]">
-                {t('nav.login')}
-              </Button>
-            </Link>
+            <div className="inline-flex items-center gap-2">
+              <Link to="/register" className="inline-flex">
+                <Button size="sm" className="rounded-full bg-[#111111] px-5 text-white hover:bg-[#0b0b0b]">
+                  {t('nav.register')}
+                </Button>
+              </Link>
+              <Link to="/login" className="inline-flex">
+                <Button size="sm" variant="ghost" className="rounded-full px-5 text-[#2A2A2A]">
+                  {t('nav.login')}
+                </Button>
+              </Link>
+            </div>
           )}
         </div>
       </div>
