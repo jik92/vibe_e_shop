@@ -20,6 +20,7 @@ docker-compose up --build
 
 Services:
 
+- Nginx reverse proxy: http://localhost (proxies to the frontend + backend APIs)
 - Frontend: http://localhost:3000
 - Backend: http://localhost:8000/docs
 - Database: PostgreSQL on localhost:5432 (credentials below)
@@ -27,6 +28,13 @@ Services:
 The frontend build step automatically pre-renders the homepage into `frontend/dist/index.html`, so bots get a fully populated product list without running JavaScript.
 
 Set `VITE_SITE_URL` in your environment (or Docker `frontend` service) to ensure canonical/OG links emit the correct absolute domain. Defaults to `http://localhost:3000`.
+
+## Custom Domain via Nginx
+
+- The `nginx` service listens on `0.0.0.0:80` and proxies `/` to the Vite preview server and `/api`/`/docs` to FastAPI. Edit `nginx/default.conf` to change `server_name` or tweak headers before deploying.
+- Point your domain (or wildcard DNS) to the host that runs `docker-compose` and expose ports 80/443 (add cert termination as needed).
+- Override `VITE_API_BASE_URL` and `VITE_SITE_URL` to match your public domain so the frontend calls the proxied endpoints, e.g. `https://shop.example.com`.
+- Rebuild with `docker-compose up --build -d` after applying the configuration changes to pick up the new proxy settings.
 
 ## Development Mode (Hot Reload)
 
