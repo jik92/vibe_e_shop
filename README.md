@@ -29,13 +29,13 @@ The frontend build step automatically pre-renders the homepage into `frontend/di
 
 Set `VITE_SITE_URL` in your environment (or Docker `frontend` service) to ensure canonical/OG links emit the correct absolute domain. Defaults to `http://localhost:3000`.
 
-The frontend now resolves API calls to the same origin by default (so `http://your-domain/` calls `http://your-domain/api`). If your backend lives on a separate hostname, override the build-time variable when starting Compose:
+Production builds now ship with `VITE_API_BASE_URL=https://www.goldenhourgiftcard.com` (see `frontend/.env.production`). You can still override this to point at another domain or fall back to same-origin behavior when needed:
 
 ```bash
 VITE_API_BASE_URL=https://api.example.com docker compose up --build
 ```
 
-For local development via the dev compose file, the Vite dev server proxies `/api` and `/docs` to `http://localhost:8000`, so you can keep hitting `http://localhost:3000` without CORS hassles.
+For local development via the dev compose file, the Vite dev server proxies `/api` and `/docs` to `http://localhost:8000`, so you can keep hitting `http://localhost:3000` without CORS hassles regardless of the production default.
 
 ## Custom Domain via Nginx
 
