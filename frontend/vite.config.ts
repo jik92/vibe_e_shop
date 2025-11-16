@@ -15,6 +15,16 @@ export default defineConfig({
   server: {
     fs: {
       allow: [resolve(__dirname, '..')]
+    },
+    proxy: {
+      '/api': {
+        target: process.env.VITE_DEV_API_URL ?? 'http://localhost:8000',
+        changeOrigin: true
+      },
+      '/docs': {
+        target: process.env.VITE_DEV_API_URL ?? 'http://localhost:8000',
+        changeOrigin: true
+      }
     }
   }
 })

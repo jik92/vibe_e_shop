@@ -15,7 +15,18 @@ interface ApiFetchOptions {
   token?: string | null
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const resolveApiBaseUrl = (): string => {
+  const raw = (import.meta.env.VITE_API_BASE_URL ?? '').trim()
+  if (raw.length > 0) {
+    return raw
+  }
+  if (typeof window !== 'undefined' && window.location?.origin) {
+    return window.location.origin
+  }
+  return 'http://localhost:8000'
+}
+
+const API_BASE_URL = resolveApiBaseUrl()
 
 const apiFetch = async <T>(
   path: string,
