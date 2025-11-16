@@ -26,5 +26,9 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  preview: {
+    host: '0.0.0.0',
+    allowedHosts: true
   }
 })
