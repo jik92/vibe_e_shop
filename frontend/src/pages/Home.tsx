@@ -70,10 +70,10 @@ const Home = (): JSX.Element => {
           })}
         </script>
       </Helmet>
-      <section className="relative grid min-h-[90vh] w-full gap-12 bg-soft-gradient px-6 py-20 shadow-[0_60px_160px_rgba(122,111,245,0.18)] lg:grid-cols-[1.3fr_minmax(0,1fr)] lg:px-32">
+      <section className="relative grid min-h-[90vh] w-full gap-12 bg-soft-gradient px-6 py-20  lg:grid-cols-[1.3fr_minmax(0,1fr)] lg:px-32">
         <div className="space-y-6">
           <Badge variant="secondary" className="w-fit gap-2 rounded-full bg-white/80 text-[#2A2A2A]">
-            <Sparkles className="h-4 w-4 text-[#7B6FF5]" />
+            <Sparkles className="h-4 w-4 text-[#111111]" />
             {t('home.badge')}
           </Badge>
           <div className="space-y-6">
@@ -96,18 +96,18 @@ const Home = (): JSX.Element => {
             <StatCard label={t('home.stat_support')} value="4.9/5" />
           </div>
         </div>
-        <div className="relative overflow-hidden rounded-[32px] bg-white/70 p-8 shadow-[0_30px_120px_rgba(122,111,245,0.18)]">
-          <div className="absolute inset-y-6 left-6 w-1 bg-gradient-to-b from-[#7B6FF5] to-transparent" />
+        <div className="relative overflow-hidden rounded-[32px] bg-white/70 p-8 ">
+          <div className="absolute inset-y-6 left-6 w-1 bg-gradient-to-b from-[#111111] to-transparent" />
           <div className="relative flex h-full flex-col gap-4 pl-6">
             {slides.map((slide) => (
               <article
                 key={slide.title}
                 className="rounded-[26px] border border-[#E3DCCF] bg-[#FBFAF7] p-5 shadow-[0_20px_60px_rgba(122,111,245,0.08)]"
               >
-                <p className="text-xs uppercase tracking-[0.3em] text-[#7B6FF5]">{slide.tag}</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-[#111111]">{slide.tag}</p>
                 <h3 className="mt-2 text-xl font-semibold text-[#2A2A2A]">{slide.title}</h3>
                 <p className="mt-2 text-sm text-[#4F4B45]">{slide.body}</p>
-                <p className="mt-4 text-sm font-semibold text-[#7B6FF5]">{slide.metric}</p>
+                <p className="mt-4 text-sm font-semibold text-[#111111]">{slide.metric}</p>
               </article>
             ))}
           </div>
@@ -118,7 +118,7 @@ const Home = (): JSX.Element => {
       <section className="space-y-6 px-6 lg:px-24">
         <div className="flex flex-col gap-2 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.4em] text-[#7B6FF5]">Slide experience</p>
+            <p className="text-sm uppercase tracking-[0.4em] text-[#111111]">Slide experience</p>
             <h2 className="text-4xl font-semibold text-[#2A2A2A]">Design cinematic workflows.</h2>
           </div>
           <p className="max-w-2xl text-sm text-[#4F4B45]">
@@ -130,9 +130,9 @@ const Home = (): JSX.Element => {
             {slides.map((slide) => (
               <div
                 key={`track-${slide.title}`}
-                className="min-w-[280px] flex-1 rounded-[28px] border border-[#E3DCCF] bg-white/80 p-5 transition hover:-translate-y-1 hover:border-[#7B6FF5]"
+                className="min-w-[280px] flex-1 rounded-[28px] border border-[#E3DCCF] bg-white/80 p-5 transition hover:-translate-y-1 hover:border-[#111111]"
               >
-                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-[#7B6FF5]">
+                <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-[#111111]">
                   <PanelsTopLeft className="h-4 w-4" />
                   {slide.tag}
                 </div>
@@ -147,10 +147,10 @@ const Home = (): JSX.Element => {
       <section className="space-y-4 px-6 lg:px-24">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-wide text-[#7B6FF5]">{t('home.featured')}</p>
+            <p className="text-sm uppercase tracking-wide text-[#111111]">{t('home.featured')}</p>
             <h2 className="text-4xl font-semibold text-[#2A2A2A]">Featured catalog</h2>
           </div>
-          <Badge variant="accent" className="rounded-full bg-[#7B6FF5] px-5 py-2 text-white">
+          <Badge variant="accent" className="rounded-full bg-[#111111] px-5 py-2 text-white">
             {productsQuery.data?.length ?? 0} {t('cart.items')}
           </Badge>
         </div>

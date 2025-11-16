@@ -41,12 +41,12 @@ const Header = (): JSX.Element => {
     <header className="sticky top-0 z-40 border-b border-[#E3DCCF]/30 bg-[#F7F4EF]/30 backdrop-blur-xl">
       <div className="mx-auto grid w-full gap-2 px-4 py-3 text-[#2A2A2A] lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:px-10">
         <Link to="/" className="inline-flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#7B6FF5] text-white shadow-inner">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#111111] text-white shadow-inner">
             <InfinityIcon className="h-6 w-6" />
           </div>
           <div className="hidden sm:block">
             <p className="text-lg font-semibold tracking-tight">PulseCart</p>
-            <p className="text-[10px] uppercase tracking-[0.4em] text-[#7B6FF5]">AI Commerce</p>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-[#111111]">AI Commerce</p>
           </div>
         </Link>
 
@@ -75,7 +75,7 @@ const Header = (): JSX.Element => {
             <Button variant="ghost" size="sm" className="relative rounded-full px-3 text-[#2A2A2A]">
               <ShoppingCart className="h-4 w-4" />
               {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 rounded-full bg-[#7B6FF5] px-2 py-[2px] text-xs font-semibold text-white">
+                <span className="absolute -right-2 -top-2 rounded-full bg-[#111111] px-2 py-[2px] text-xs font-semibold text-white">
                   {cartCount}
                 </span>
               )}
@@ -96,7 +96,7 @@ const Header = (): JSX.Element => {
                   >
                     <span>{t('nav.cart')}</span>
                     {cartCount > 0 && (
-                      <span className="rounded-full bg-[#F0EAFD] px-2 text-xs font-semibold text-[#7B6FF5]">{cartCount}</span>
+                      <span className="rounded-full bg-[#F2F2F2] px-2 text-xs font-semibold text-[#111111]">{cartCount}</span>
                     )}
                   </Link>
                   <Link

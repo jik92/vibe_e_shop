@@ -38,10 +38,10 @@ const Orders = (): JSX.Element => {
       <Card className="rounded-[32px] border border-[#E3DCCF] bg-white/95 shadow-xl">
         <CardHeader className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-[#7B6FF5]">{t('orders.title')}</p>
+            <p className="text-sm uppercase tracking-[0.35em] text-[#111111]">{t('orders.title')}</p>
             <CardTitle className="text-3xl text-[#2A2A2A]">{t('orders.title')}</CardTitle>
           </div>
-          <Badge variant="accent" className="rounded-full bg-[#7B6FF5] px-4 py-2 text-white">
+          <Badge variant="accent" className="rounded-full bg-[#111111] px-4 py-2 text-white">
             {data.length} {t('orders.items')}
           </Badge>
         </CardHeader>
@@ -65,7 +65,7 @@ const Orders = (): JSX.Element => {
                     {order.items?.map((item) => item.product?.name).filter(Boolean).join(', ') || '—'}
                   </TableCell>
                   <TableCell>
-                    <Badge variant="accent" className="rounded-full bg-[#F0EAFD] text-[#7B6FF5]">
+                    <Badge variant="accent" className="rounded-full bg-[#F2F2F2] text-[#111111]">
                       {order.status}
                     </Badge>
                   </TableCell>
@@ -75,7 +75,7 @@ const Orders = (): JSX.Element => {
                   <TableCell className="font-medium text-[#2A2A2A]">{formatCurrency(order.total_price)}</TableCell>
                   <TableCell className="text-right">
                     <Link to="/orders/$orderId" params={{ orderId: order.id.toString() }}>
-                      <Button variant="ghost" size="sm" className="rounded-full text-[#7B6FF5] hover:bg-[#F0EAFD]">
+                      <Button variant="ghost" size="sm" className="rounded-full text-[#111111] hover:bg-[#F2F2F2]">
                         {t('buttons.view')}
                       </Button>
                     </Link>

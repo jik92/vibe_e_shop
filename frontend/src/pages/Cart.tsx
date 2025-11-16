@@ -68,7 +68,7 @@ const CartPage = (): JSX.Element => {
         <div>
           <h2 className="text-3xl font-semibold text-slate-900">{t('cart.title')}</h2>
         </div>
-        <Badge variant="accent" className="bg-[#7B6FF5] text-white">
+        <Badge variant="accent" className="bg-[#111111] text-white">
           {data.items.length} {t('cart.items')}
         </Badge>
       </div>
